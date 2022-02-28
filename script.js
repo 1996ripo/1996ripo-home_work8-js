@@ -60,62 +60,63 @@
 
 // ========================3===============================
 
-const bookSearch = document.getElementById('book-search');
-const form = document.getElementById('form');
-const submit = document.getElementById('submit');
-const result = document.getElementById('result');
-const pages = document.getElementById('pages');
+// const bookSearch = document.getElementById('book-search');
+// const form = document.getElementById('form');
+// const submit = document.getElementById('submit');
+// const result = document.getElementById('result');
+// const pages = document.getElementById('pages');
+// const resultCount = document.getElementById('result-count');
 
-form.addEventListener('click', e => {
-    e.preventDefault();
-});
-
-
-let pageNum = 1;
-
-function searchFunction() {
-    const value = bookSearch.value.split(' ').join('+');
-    pages.innerHTML = `<a href="#">1</a>`;
-    result.innerHTML = "";
-
-    fetch(`http://openlibrary.org/search.json?q=${value}`).then(res => {
-        const json = res.json();
-        return json;
-    }).then(json => {
-        for (let i = 2; i <= Math.ceil(+json.numFound / 100); i++) {
-            pages.insertAdjacentHTML('beforeend', `<a href="#">${i}</a>`)
-        }
-    });
+// form.addEventListener('click', e => {
+//     e.preventDefault();
+// });
 
 
-    fetch(`http://openlibrary.org/search.json?q=${value}&page=${pageNum}`).then(res => {
-        console.log(res);
-        const json = res.json();
-        return json;
-    }
-    ).then(
-        json => {
-            console.log(json);
-            console.log(json.numFound);
-            for (const [key, value] of Object.entries(json.docs)) {
-                const li = (`<li>
-                                <p> Title - ${value.title} <br> First Publish Year - ${value.first_publish_year}</p>
-                                <p>Author Name - ${value.author_name}</p>
-                                <p>Subject - ${value.subject}</p> 
-                           </li>`);
-                result.insertAdjacentHTML('beforeend', li)
-            }
+// let pageNum = 1;
 
-        }
-    )
-}
+// function searchFunction() {
+//     const value = bookSearch.value.split(' ').join('+');
+//     pages.innerHTML = `<a href="#">1</a>`;
+//     result.innerHTML = "";
+
+//     fetch(`http://openlibrary.org/search.json?q=${value}`).then(res => {
+//         const json = res.json();
+//         return json;
+//     }).then(json => {
+//         for (let i = 2; i <= Math.ceil(+json.numFound / 100); i++) {
+//             pages.insertAdjacentHTML('beforeend', `<a href="#">${i}</a>`)
+//         }
+//     });
 
 
-submit.addEventListener('click', searchFunction);
-pages.addEventListener('click', e => {
-    pageNum = e.target.textContent;
-    searchFunction();
-}, true)
+//     fetch(`http://openlibrary.org/search.json?q=${value}&page=${pageNum}`).then(res => {
+//         console.log(res);
+//         const json = res.json();
+//         return json;
+//     }
+//     ).then(
+//         json => {
+//             resultCount.innerHTML = `Count of resoult is ${json.numFound}`;
+//             console.log(json.numFound);
+//             for (const [key, value] of Object.entries(json.docs)) {
+//                 const li = (`<li>
+//                                 <p> Title - ${value.title} <br> First Publish Year - ${value.first_publish_year}</p>
+//                                 <p>Author Name - ${value.author_name}</p>
+//                                 <p>Subject - ${value.subject}</p> 
+//                            </li>`);
+//                 result.insertAdjacentHTML('beforeend', li)
+//             }
+
+//         }
+//     )
+// }
+
+
+// submit.addEventListener('click', searchFunction);
+// pages.addEventListener('click', e => {
+//     pageNum = e.target.textContent;
+//     searchFunction();
+// }, true)
 
 // ===============================4=========================
 // const resultN4 = document.getElementById('resultN4');
